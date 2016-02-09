@@ -47,6 +47,15 @@ public class Checking extends Account {
 				if (balance < 0.0f) {
 					setState(State.OVERDRAWN);
 				}
+				// CF: Bug-21 Fix
+				if (balance < -100){
+					balance += amount;
+					if (numWithdraws > 10){
+						balance += 2.0f;
+					}
+					numWithdraws--;
+					return false;
+				}
 				return true;
 			}
 		}
